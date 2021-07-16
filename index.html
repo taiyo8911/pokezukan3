@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>ポケモン図鑑Ver3.0</title>
+</head>
+
+<body>
+    <div id="result">
+
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th width="1%">No</th>
+                <th width="20%">ポケモン</th>
+                <th width="23%">タイプ</th>
+                <th width="9%">HP</th>
+                <th width="9%">攻撃</th>
+                <th width="9%">防御</th>
+                <th width="9%">特攻</th>
+                <th width="9%">特防</th>
+                <th width="9%">スピ</th>
+            </tr>
+        </thead>
+        <tbody id="data"></tbody>
+    </table>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.getJSON("poke.json", function (data) {
+            //JSON取得後の処理
+            for (let i in data) {
+                $("#data").append(
+                    '<tr align="center">'
+                    + '<td>' + data[i].no + '</td>'
+                    + '<td>' + data[i].name + '</td>'
+                    + '<td>' + data[i].types + '</td>'
+                    + '<td>' + data[i].stats['hp'] + '</td>'
+                    + '<td>' + data[i].stats['attack'] + '</td>'
+                    + '<td>' + data[i].stats['defence'] + '</td>'
+                    + '<td>' + data[i].stats['spAttack'] + '</td>'
+                    + '<td>' + data[i].stats['spDefence'] + '</td>'
+                    + '<td>' + data[i].stats['speed'] + '</td>'
+                    + '</tr>'
+                );
+            }
+        });
+
+        // 画像を順に表示
+        let $result = $("#result"), n = 810;
+        let li = [];
+        for (let i = 0; ++i < n;) {
+            li.push("<img src='/sprites/" + i + ".png'>");
+        }
+        $result[0].innerHTML = li.join("");
+    });
+</script>
+
+</html>
